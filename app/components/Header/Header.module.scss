@@ -1,0 +1,35 @@
+.header {
+    display: flex;
+    width: 100%;
+    background-color: #2250B8;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+.buttonMenu {
+    display: flex;
+    gap: 1rem;
+}
+.menu {
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    a, p {
+        color: 'white';
+        text-decoration: none;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+.logo {
+    text-transform: initial;
+    font-weight: 600;
+
+    &:hover {
+        text-decoration: none !important;
+    }
+}
