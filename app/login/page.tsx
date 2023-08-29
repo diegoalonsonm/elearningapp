@@ -1,20 +1,22 @@
 'use client'
 
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography } from '@mui/material';
 import scss from './login.module.scss';
-
-interface UserData {
-    authToken: string;
-    username: string;
-    isLoggedIn: boolean;
-}
+import { UserDataType } from '../hooks/useUserData';
+import Cookies from 'js-cookie';
 
 const LoginPage = () => {
     const [identifier, setIdentifier] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [loginError, setLoginError] = useState<string>('');
-    const [userData, setUserData] = useState<UserData | null>(null);
+    const [userData, setUserData] = useState<UserDataType | null>(null);
+
+    useEffect(() => {
+        const userDataCookie = Cookies.get('userData');
+        const parsedUserData = JSON.parse(userDataCookie || '{}') as UserDataType;
+        setUserData(parsedUserData); 
+    }, [])
 
     const handleLogin = async (e: any) => {
         e.preventDefault();
@@ -36,8 +38,11 @@ const LoginPage = () => {
                     username: data.user.username,
                     isLoggedIn: data.user.confirmed
                 }
+                
+                Cookies.set('userData', JSON.stringify(userData), {expires: 5});
                 setUserData(userData);
-                console.log(userData)
+                location.reload();
+
             } else {
                 setLoginError(data.message[0].messages[0].message);
             }
@@ -49,8 +54,9 @@ const LoginPage = () => {
     }
 
     const handleSignOut = () => {
+        Cookies.remove('userData')
         setUserData(null);
-        console.log(userData)
+        location.reload()
     }
 
     return (

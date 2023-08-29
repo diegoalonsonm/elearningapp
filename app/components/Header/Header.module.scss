@@ -2,34 +2,40 @@
     display: flex;
     width: 100%;
     background-color: #2250B8;
-    justify-content: space-between;
-    align-items: center;
     padding: 1rem;
 }
-.buttonMenu {
+  
+.nav {
     display: flex;
-    gap: 1rem;
+    width: 100%;
 }
+  
 .menu {
-    list-style-type: none;
     display: flex;
-    gap: 1rem;
     align-items: center;
-
+    list-style-type: none;
+    padding-left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  
+    li {
+      display: flex;
+      align-items: center;
+      padding-right: 1rem;
+    }
+  
     a, p {
-        color: 'white';
-        text-decoration: none;
-        
-        &:hover {
-            text-decoration: underline;
-        }
+      color: white;
+      text-decoration: none;
+  
+      &:hover {
+        text-decoration: underline;
+      }
     }
 }
-.logo {
-    text-transform: initial;
-    font-weight: 600;
-
-    &:hover {
-        text-decoration: none !important;
-    }
+  
+.signOutBtn {
+    min-width: 4rem;
+    white-space: nowrap;
 }
