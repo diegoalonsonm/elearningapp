@@ -6,21 +6,19 @@ import Link from "next/link"
 import React from "react"
 import { useRouter } from "next/navigation"
 import { UserDataType } from "@/app/hooks/useUserData"
+import ThemeToggler from "../ThemeToggler/ThemeToggler"
 
 export type HeaderProps = {
-    userData: UserDataType;
+    userData: UserDataType | null;
+    ColorModeContext: React.Context<{toggleColorMode: () => void}>
+    currentMode: 'light' | 'dark'
+    showLabel?: boolean
 }
 
-const Header: React.FC<HeaderProps> = ({userData}) => {
+const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
+    const { userData, ColorModeContext, currentMode, showLabel } = props
+
     const router = useRouter();
-
-    const handleSignOut = () => {
-        router.push('/logout')
-    }
-
-    const handleSignIn = () => {
-        router.push('/login')
-    }
 
     return (
         <header className={scss.header}>
@@ -43,6 +41,13 @@ const Header: React.FC<HeaderProps> = ({userData}) => {
                             </li>
                         </>
                     )}
+                    <li style={{marginLeft: 'auto'}}>
+                        <ThemeToggler
+                            ColorModeContext={ColorModeContext}
+                            currentMode={currentMode}
+                            showLabel={showLabel}
+                        />
+                    </li>
                 </ul>
                 {
                     userData?.isLoggedIn ? (
